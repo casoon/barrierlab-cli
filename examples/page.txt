@@ -1,0 +1,76 @@
+[FAIL] barrierlab examples/page.html
+
+  Fail: 7   Review: 6   Untested: 15
+
+  Top issue rules:
+       1x  buttons/name-missing
+       1x  contrast/text-insufficient
+       1x  focus/indicator-unmeasured
+       1x  focus/obscured
+       1x  forms/label-missing
+
+* Failed (7)
+  - The image has no alt attribute. [images/alt-missing]
+  - The input has no label. [forms/label-missing]
+  - The document has no main landmark. [landmarks/main-missing]
+  - The link has no accessible name. [links/name-missing]
+  - The button has no accessible name. [buttons/name-missing]
+  - Content is not contained in any landmark.
+    [landmarks/content-outside]
+  - The text reaches a contrast ratio of 2.59:1; 4.5:1 is
+    required for normal text. [contrast/text-insufficient]
+
+* Needs review (6)
+  - No headings, no main landmark and no skip link; if blocks
+    repeat across pages, nothing bypasses them. [headings/none]
+  - The document has no navigation landmark.
+    [landmarks/navigation-missing]
+  - The document has no banner landmark.
+    [landmarks/banner-missing]
+  - The document has no contentinfo landmark.
+    [landmarks/contentinfo-missing]
+  - No skip link found that bypasses repeated blocks.
+    [keyboard/skip-link-missing]
+  - The field "" seems to ask for information about the user but
+    has no autocomplete token. [forms/purpose-missing]
+
+* Check by hand (15) [advisory]
+  - Check by hand: every alt text says what the image means in
+    its place, and only purely decorative images have alt="".
+    [manual/image-alternatives]
+  - Check by hand: what looks like a heading, list, table or
+    menu is marked up as one — not just styled to look like it.
+    [manual/visual-structure]
+  - Check by hand: colour is never the only way to tell
+    something — links in text, required fields, errors, states.
+    [manual/use-of-color]
+  - Check by hand: any time limit can be turned off, adjusted or
+    extended. [manual/timing]
+  - Check by hand: submit the form with errors — each error is
+    named in text, next to its field, with a suggestion how to
+    fix it. [manual/error-handling]
+  - Check by hand: no task depends on timing at all, except
+    synchronised media and real-time events. [manual/no-timing]
+  - Check by hand: jargon, idioms and unusual words are
+    explained — inline, with <dfn> or in a glossary.
+    [manual/unusual-words]
+  - Check by hand: fields that need it have context-sensitive
+    help — instructions, examples or a link to help.
+    [manual/help]
+  - The host does not measure flex-direction / order; this
+    heuristic did not run. [order/visual-mismatch]
+  - The host does not measure animation-iteration-count; this
+    heuristic did not run. [motion/infinite-animation]
+  - The host does not measure min-width; this heuristic did not
+    run. [reflow/min-width]
+  - The host does not measure cursor; this heuristic did not
+    run. [keyboard/pointer-only]
+  - The host does not measure overlap with fixed or sticky
+    elements; this heuristic did not run. [focus/obscured]
+  - Focus visibility was not measured — that needs a pass that
+    moves focus. Check by hand that every control shows keyboard
+    focus. [focus/indicator-unmeasured]
+  - The host measures no scroll extents; scrollable regions
+    without keyboard access were not checked.
+    [keyboard/scrollable-region-not-focusable]
+

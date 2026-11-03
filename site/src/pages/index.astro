@@ -1,0 +1,103 @@
+---
+import {
+  Badge,
+  Badges,
+  CallToAction,
+  Facts,
+  Faq,
+  Features,
+  Hero,
+  Install,
+  Quickstart,
+  Terminal,
+} from '@casoon/pages-theme/components';
+import Base from '@casoon/pages-theme/layouts/Base.astro';
+import { url } from '@casoon/pages-theme/url';
+import report from '../../../examples/page.txt?raw';
+---
+
+<Base>
+  <Hero
+    title="Accessibility audit, without the browser."
+    lead="barrierlab fetches a page, parses its source and checks it with the barrierlab rule set. One command, no Chrome, results in seconds."
+  >
+    <Install
+      commands={[
+        { label: 'cargo', command: 'cargo install --git https://github.com/casoon/barrierlab-cli' },
+      ]}
+    />
+    <Badges>
+      <Badge>MIT</Badge>
+      <Badge>no browser</Badge>
+      <Badge>WCAG 2.2</Badge>
+    </Badges>
+    <Terminal slot="output" title="barrierlab examples/page.html" dots ansi={report} />
+  </Hero>
+
+  <Facts
+    items={[
+      { value: '134', label: 'rules run on the page source' },
+      { value: '0', label: 'browsers needed' },
+      { value: '1', label: 'finding model, shared with auditmysite' },
+    ]}
+  />
+
+  <Features
+    items={[
+      {
+        title: 'The same rules as auditmysite',
+        body: 'Structure, names, ARIA, forms and stylesheets come from the barrierlab libraries, not from a second implementation.',
+      },
+      {
+        title: 'Contrast from the stylesheets',
+        body: 'It computes the cascade (specificity, inheritance, var(), media queries, modern colour syntax) and checks text against the background it finds, including gradients.',
+      },
+      {
+        title: 'Not run is not passed',
+        body: 'What the tool cannot determine without a browser, such as the contrast over a photo or a measured layout, is reported as undetermined or not run, never as a pass.',
+      },
+      {
+        title: 'Any page, any stack',
+        body: 'It reads served HTML, so WordPress, Shopify or a static build all work the same. No access to the source repository needed.',
+      },
+      {
+        title: 'Made for CI',
+        body: 'Plain text or JSON output, and a non-zero exit code when a rule fails.',
+      },
+    ]}
+  />
+
+  <Quickstart
+    lead="Point it at a URL or a saved file. The documentation covers the output and what the tool cannot see."
+    steps={[
+      'Install the binary.',
+      'Run <code>barrierlab https://example.com</code>.',
+      'Read the findings, or add <code>--json</code> for a machine-readable report.',
+    ]}
+  >
+    <Terminal title="barrierlab" ansi={'barrierlab --json https://example.com > report.json'} />
+  </Quickstart>
+
+  <Faq
+    items={[
+      {
+        q: 'Does it replace axe or auditmysite?',
+        a: 'No. It reads the HTML as served. Content that JavaScript builds later, rendered colours and layout need a browser, and those checks stay with auditmysite or axe.',
+      },
+      {
+        q: 'What about single-page apps?',
+        a: 'The source of such a page holds little content, so the result says little. Use a browser-based tool there.',
+      },
+      {
+        q: 'Is colour contrast checked?',
+        a: 'Yes, where the colours can be worked out from the stylesheets. Over a photo, behind an absolutely positioned box or under a filter the result says undetermined instead of guessing.',
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="Check a page in one command."
+    href={url('docs/getting-started/quickstart/')}
+    label="Read the quickstart"
+  />
+</Base>
