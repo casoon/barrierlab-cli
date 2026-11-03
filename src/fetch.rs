@@ -1,8 +1,8 @@
-//! Abruf der Seite und ihrer Stylesheets. Beschafft nur; bewertet nicht.
+//! Fetching the page and its stylesheets. Fetches only; judges nothing.
 //!
-//! Anfragen sehen aus wie die eines normalen Browsers (Accept, Sprache,
-//! Kompression, Navigations-Header), weil viele Server nackte Clients
-//! abweisen. Eine Schutzseite oder Sperre wird gemeldet, nicht umgangen.
+//! Requests look like those of an ordinary browser (Accept, language,
+//! compression, navigation headers) because many servers turn away bare
+//! clients. A protection page or a refusal is reported, not worked around.
 
 use std::thread::sleep;
 use std::time::Duration;
@@ -20,11 +20,11 @@ const BOT_UA: &str = concat!(
 );
 const TRIES: u32 = 3;
 const BACKOFF_MS: u64 = 400;
-/// Längste Wartezeit, die ein `Retry-After` uns abverlangen darf.
+/// The longest wait a `Retry-After` may ask of us.
 const RETRY_AFTER_MAX_S: u64 = 10;
 
 pub struct Options {
-    /// Sich ehrlich als `barrierlab` ausweisen statt als Browser.
+    /// Identify honestly as `barrierlab` instead of as a browser.
     pub bot: bool,
     pub user_agent: Option<String>,
 }
@@ -36,7 +36,7 @@ pub struct Fetcher {
 
 pub struct Page {
     pub html: String,
-    /// Basis zum Auflösen von `<link href>`; bei einer Datei `None`.
+    /// Base for resolving `<link href>`; `None` for a file.
     pub base: Option<Url>,
 }
 
@@ -55,7 +55,7 @@ impl Fetcher {
             .user_agent(ua)
             .timeout_global(Some(Duration::from_secs(30)))
             .max_redirects(10)
-            // Status selbst auswerten, um Wiederholung und Hinweise zu steuern.
+            // Evaluate the status ourselves to drive retries and hints.
             .http_status_as_error(false)
             .build()
             .into();
@@ -79,8 +79,8 @@ impl Fetcher {
         Ok(Page { html, base: None })
     }
 
-    /// Die Stylesheets der Seite in Dokumentreihenfolge: `<style>`-Text und
-    /// verlinkte Dateien. Eine nicht ladbare Datei fehlt, mit Hinweis auf stderr.
+    /// The page's stylesheets in document order: `<style>` text and linked
+    /// files. A file that cannot be loaded is skipped, with a note on stderr.
     pub fn stylesheets(&self, page: &Page, inline: &[Inline]) -> Vec<Stylesheet> {
         inline
             .iter()
@@ -101,7 +101,7 @@ impl Fetcher {
             .collect()
     }
 
-    /// Ein GET mit Wiederholung bei Übertragungsfehlern, 429 und 5xx.
+    /// A GET, repeated on transfer errors, 429 and 5xx.
     fn get(&self, url: &Url, kind: Kind, referer: Option<&Url>) -> Result<String, String> {
         let mut last = String::new();
         for attempt in 0..TRIES {

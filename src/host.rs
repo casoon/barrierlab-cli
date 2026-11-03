@@ -1,5 +1,5 @@
-//! Host über `a11y-dom::Arena`: Struktur und Semantik (Rolle, Name über
-//! `accname`). Darstellung bedient dieser Host noch nicht.
+//! Host over `a11y-dom::Arena`: structure, semantics (role and name through
+//! `accname`) and, through `style-cascade`, computed styles. No layout.
 
 use a11y_dom::{
     Arena, ArenaBuilder, ArenaNode, Backdrop, ComputedStyle, Document, Node, NodeKind, Rect,
@@ -47,7 +47,7 @@ pub struct Host<'a> {
     cascade: Cascade,
 }
 
-/// `<style>`-Texte und `<link rel=stylesheet>` in Dokumentreihenfolge.
+/// `<style>` texts and `<link rel=stylesheet>` in document order.
 pub fn style_sources(doc: &Arena) -> Vec<Inline> {
     elements(doc)
         .filter_map(|n| {
@@ -110,25 +110,25 @@ impl Semantics for Host<'_> {
 }
 
 impl Rendering for Host<'_> {
-    /// Berechnete Stile aus der Kaskade über die Stylesheets der Seite.
+    /// Computed styles from the cascade over the page's stylesheets.
     fn computed_style<'n>(&'n self, node: Self::N<'n>) -> Option<ComputedStyle> {
         (node.kind() == NodeKind::Element).then(|| self.cascade.computed_style(node))
     }
 
-    /// Ohne Layout gibt es keine Kästen.
+    /// Without layout there are no boxes.
     fn bounds<'n>(&'n self, _node: Self::N<'n>) -> Option<Rect> {
         None
     }
 
-    /// Verläufe: Leuchtdichte der Stufen, wo kein einzelner Hintergrund gilt.
+    /// Gradients: luminance of the colour stops where no single background applies.
     fn sampled_backdrop<'n>(&'n self, node: Self::N<'n>) -> Option<Backdrop> {
         self.cascade
             .backdrop_luminances(node)
             .map(|luminance| Backdrop { luminance })
     }
 
-    /// Dargestellt ist, was weder selbst noch über einen Vorfahren
-    /// `display: none` hat und nicht `visibility: hidden` ist.
+    /// Rendered means: neither the node nor an ancestor has `display: none`,
+    /// and it is not `visibility: hidden`.
     fn is_rendered<'n>(&'n self, node: Self::N<'n>) -> bool {
         let verborgen = |n: ArenaNode<'_>| {
             let s = self.cascade.computed_style(n);

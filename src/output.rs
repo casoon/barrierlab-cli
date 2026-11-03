@@ -1,4 +1,4 @@
-//! Textausgabe über runemark: Urteil, Kennzahlen, Befunde nach Ausgang.
+//! Text output through runemark: verdict, counts, findings by outcome.
 
 use a11y_report::{Outcome, Report};
 use runemark::{
@@ -42,8 +42,8 @@ pub fn print(target: &str, report: &Report) {
             view = view.add_group(group);
         }
     }
-    // Breite aus COLUMNS (die Shell setzt sie nicht für Unterprozesse; wer
-    // eine feste Breite will, etwa für Schnappschüsse, setzt sie selbst).
+    // Width from COLUMNS (shells do not export it to child processes; set it
+    // yourself for a fixed width, e.g. for snapshots).
     let width = std::env::var("COLUMNS")
         .ok()
         .and_then(|c| c.parse::<usize>().ok())

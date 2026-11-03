@@ -23,8 +23,8 @@ serde_json = "1"
 ureq = "3"
 url = "2"
 
-# Solange style-cascade nicht veröffentlicht ist: lokale Pakete. Wegfallen,
-# sobald die Registry-Versionen da sind.
+# Until style-cascade is published: local packages. Remove once the registry
+# versions exist.
 [patch.crates-io]
 a11y-dom = { path = "../barrierlab/crates/a11y-dom" }
 stylesheet-parse = { path = "../barrierlab/crates/stylesheet-parse" }

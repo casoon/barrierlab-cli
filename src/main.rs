@@ -1,5 +1,5 @@
-//! `barrierlab <url|datei>`: lädt eine Seite, parst sie ohne Browser und prüft
-//! sie mit den Regeln aus `a11y-rules`.
+//! `barrierlab <url|file>`: fetches a page, parses it without a browser and
+//! checks it with the rules from `a11y-rules`.
 
 mod fetch;
 mod host;
