@@ -13,22 +13,12 @@ name = "barrierlab"
 path = "src/main.rs"
 
 [dependencies]
-a11y-dom = "0.26.1"
-a11y-report = "0.26.1"
-a11y-rules = { version = "0.26.1", default-features = false }
-accname = "0.26.1"
-html5-parser = "0.4.1"
+# Temporary: the barrierlab crates are pinned to one git revision until
+# a11y-static and style-cascade are on crates.io. One rev for all of them, so
+# only one copy of each crate exists. See README, "Dependencies".
+a11y-report = { git = "https://github.com/casoon/barrierlab", rev = "0300eb671175f10b92035161ca8ea66589e9c97f" }
+a11y-static = { git = "https://github.com/casoon/barrierlab", rev = "0300eb671175f10b92035161ca8ea66589e9c97f" }
 runemark = "0.9.1"
-style-cascade = "0.1.0"
-stylesheet-parse = "0.1.0"
 serde_json = "1"
 ureq = "3"
 url = "2"
-
-# Until style-cascade is published: local packages. Remove once the registry
-# versions exist.
-[patch.crates-io]
-a11y-dom = { path = "../barrierlab/crates/a11y-dom" }
-stylesheet-parse = { path = "../barrierlab/crates/stylesheet-parse" }
-media-query-parse = { path = "../barrierlab/crates/media-query-parse" }
-style-cascade = { path = "../barrierlab/crates/style-cascade" }

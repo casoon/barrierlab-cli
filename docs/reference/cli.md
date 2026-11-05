@@ -5,7 +5,8 @@ order: 1
 ---
 
 ```text
-barrierlab [--json] [--bot] [--user-agent <ua>] <url|file>
+barrierlab [--json] [--bot] [--user-agent <ua>] [--base-url <url>]
+           [--width <px>] [--dark] [--fail-on <fail|review>] <url|file>
 ```
 
 | Option | Effect |
@@ -13,6 +14,10 @@ barrierlab [--json] [--bot] [--user-agent <ua>] <url|file>
 | `--json` | Prints the report as JSON, using the `a11y-report` finding model, instead of text. |
 | `--bot` | Identifies itself as `barrierlab` and sends no browser navigation headers. |
 | `--user-agent <ua>` | Sends this `User-Agent` instead of the default. |
+| `--base-url <url>` | Base for resolving `<link href>`. Needed for a local file, which has none; without it linked stylesheets are not loaded. For a URL the page's own address is the default. |
+| `--width <px>` | Viewport width for media queries. Default 1280. |
+| `--dark` | Evaluates `prefers-color-scheme: dark` as true. Default is the light scheme. |
+| `--fail-on <fail\|review>` | `fail` (default) exits 1 when a rule failed; `review` also when a finding needs review. |
 
 ## Fetching
 
@@ -22,6 +27,11 @@ clients, so this keeps ordinary pages reachable. Requests time out after 30 seco
 ten redirects and are repeated up to three times on connection errors, `429` and `5xx`, with
 back-off and a `Retry-After` of at most ten seconds.
 
+Page and stylesheet bodies are capped (10 MiB and 2 MiB); a larger response is an error, not
+truncated. A stylesheet that cannot be loaded (no base URL, HTTP error, too large) is not dropped
+silently: the report lists it under `inputs` with the reason, and the contrast rules come out as
+untested instead of passed.
+
 A refusal (`401`, `403`, `429`) is reported as such; the tool does not try to get past a login or a
 bot challenge. Save the page from a browser and pass the file instead.
 
@@ -29,8 +39,8 @@ bot challenge. Save the page from a browser and pass the file instead.
 
 | Code | Meaning |
 |---|---|
-| `0` | No rule failed. Findings that need review do not fail the run. |
-| `1` | At least one rule failed. |
+| `0` | No rule failed. Findings that need review do not fail the run, unless `--fail-on review`. |
+| `1` | At least one rule failed (or, with `--fail-on review`, needs review). |
 | `2` | The page could not be read, or the arguments were wrong. |
 
 ## Output width
