@@ -59,12 +59,9 @@ Requires Rust 1.88 or newer.
 
 ## Dependencies
 
-The barrierlab crates (`a11y-static`, `a11y-report`, and everything they pull in) are taken from
-git, pinned to one `rev` of https://github.com/casoon/barrierlab, because `a11y-static`,
-`style-cascade` and `css-tokenize` are not on crates.io yet. This is temporary. Once they are
-published, replace the two `git`/`rev` entries in `Cargo.toml` by registry versions, for example
-`a11y-static = "0.1"` and `a11y-report = "0.27"`. Keep all barrierlab crates on one version so that
-only one copy of each exists (`cargo tree -d` shows it).
+The audit comes from the barrierlab crates on crates.io (`a11y-static` and `a11y-report`, which
+pull in the rest). All of them stay on one release line, so only one copy of each crate exists
+(`cargo tree -d` shows it).
 
 ## License
 

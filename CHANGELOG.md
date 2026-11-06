@@ -23,4 +23,4 @@ All notable changes to this project are documented in this file. The format foll
 ### Changed
 
 - **Audit:** parsing, stylesheet discovery (`<link media>`, `disabled`, `rel=alternate`, `<style media>`, `hidden`) and the cascade wiring come from `a11y-static`; the CLI only fetches.
-- **Dependencies:** barrierlab crates come from git at one pinned revision instead of a sibling checkout; `cargo install --git` works on its own.
+- **Dependencies:** barrierlab crates come from crates.io (`a11y-static` 0.1, `a11y-report` 0.28) instead of a sibling checkout; `cargo install --git` works on its own.
