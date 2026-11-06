@@ -29,6 +29,21 @@ pub fn print(target: &str, report: &Report) {
             )],
         ));
     }
+    if !report.inputs.is_empty() {
+        let lines = report
+            .inputs
+            .iter()
+            .map(|i| {
+                let subject = i.subject.as_deref().unwrap_or("-");
+                let detail = i.detail.as_deref().unwrap_or("");
+                format!("{subject}: {detail}")
+            })
+            .collect();
+        view = view.add_scope_note(ScopeNote::new(
+            "Incomplete input (affected checks are untested, not passed)",
+            lines,
+        ));
+    }
     for (outcome, title, tone, advisory) in [
         (Outcome::Fail, "Failed", Tone::Error, false),
         (Outcome::Review, "Needs review", Tone::Warning, false),
