@@ -5,7 +5,7 @@ version = 4
 [[package]]
 name = "a11y-dom"
 version = "0.27.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "html5-parser",
 ]
@@ -13,7 +13,7 @@ dependencies = [
 [[package]]
 name = "a11y-report"
 version = "0.27.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "serde",
 ]
@@ -21,7 +21,7 @@ dependencies = [
 [[package]]
 name = "a11y-rules"
 version = "0.27.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "a11y-dom",
  "a11y-report",
@@ -32,7 +32,7 @@ dependencies = [
 [[package]]
 name = "a11y-static"
 version = "0.1.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "a11y-dom",
  "a11y-report",
@@ -46,7 +46,7 @@ dependencies = [
 [[package]]
 name = "accname"
 version = "0.27.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "a11y-dom",
 ]
@@ -109,7 +109,7 @@ dependencies = [
 [[package]]
 name = "css-tokenize"
 version = "0.1.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 
 [[package]]
 name = "displaydoc"
@@ -162,7 +162,7 @@ dependencies = [
 [[package]]
 name = "html5-parser"
 version = "0.4.1"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 
 [[package]]
 name = "http"
@@ -311,7 +311,7 @@ checksum = "5d15f86d12da44cd8d4ec3c73984537eb7f4cadcb9776a575a0a8a05ca11005c"
 [[package]]
 name = "media-query-parse"
 version = "0.1.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "css-tokenize",
 ]
@@ -499,7 +499,7 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 [[package]]
 name = "style-cascade"
 version = "0.1.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "a11y-dom",
  "media-query-parse",
@@ -509,7 +509,7 @@ dependencies = [
 [[package]]
 name = "stylesheet-parse"
 version = "0.1.0"
-source = "git+https://github.com/casoon/barrierlab?rev=0300eb671175f10b92035161ca8ea66589e9c97f#0300eb671175f10b92035161ca8ea66589e9c97f"
+source = "git+https://github.com/casoon/barrierlab?rev=d7d7aaee6b6247da72d11948c9135e2f97939844#d7d7aaee6b6247da72d11948c9135e2f97939844"
 dependencies = [
  "css-tokenize",
 ]

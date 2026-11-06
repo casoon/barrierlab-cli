@@ -16,8 +16,8 @@ path = "src/main.rs"
 # Temporary: the barrierlab crates are pinned to one git revision until
 # a11y-static and style-cascade are on crates.io. One rev for all of them, so
 # only one copy of each crate exists. See README, "Dependencies".
-a11y-report = { git = "https://github.com/casoon/barrierlab", rev = "0300eb671175f10b92035161ca8ea66589e9c97f" }
-a11y-static = { git = "https://github.com/casoon/barrierlab", rev = "0300eb671175f10b92035161ca8ea66589e9c97f" }
+a11y-report = { git = "https://github.com/casoon/barrierlab", rev = "d7d7aaee6b6247da72d11948c9135e2f97939844" }
+a11y-static = { git = "https://github.com/casoon/barrierlab", rev = "d7d7aaee6b6247da72d11948c9135e2f97939844" }
 runemark = "0.9.1"
 serde_json = "1"
 ureq = "3"
