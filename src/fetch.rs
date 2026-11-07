@@ -88,52 +88,47 @@ impl Fetcher {
         Ok(Page { html, base })
     }
 
-    /// Fetches the linked stylesheets among `refs`. Returns the sheets and,
-    /// for each `<link>` that could not be loaded, its `href` and the reason.
-    pub fn stylesheets(
-        &self,
-        page: &Page,
-        refs: &[StylesheetRef],
-    ) -> (Vec<Sheet>, Vec<(String, String)>) {
-        let mut sheets = Vec::new();
-        let mut failed = Vec::new();
+    /// Fetches the linked stylesheets among `refs`. A `<link>` that could not
+    /// be loaded comes back as a failed sheet that carries the reason.
+    pub fn stylesheets(&self, page: &Page, refs: &[StylesheetRef]) -> Vec<Sheet> {
+        let mut sheets: Vec<Sheet> = Vec::new();
         for r in refs {
             let StylesheetRef::Link { href, .. } = r else {
                 continue;
             };
-            if sheets.iter().any(|s: &Sheet| s.source == *href)
-                || failed.iter().any(|(h, _): &(String, String)| h == href)
-            {
+            if sheets.iter().any(|s| s.source == *href) {
                 continue;
             }
             let Some(base) = page.base.as_ref() else {
-                failed.push((
+                sheets.push(Sheet::failed(
                     href.clone(),
-                    "no base URL for a local file; pass --base-url".to_string(),
+                    "no base URL for a local file; pass --base-url",
                 ));
                 continue;
             };
             let url = match base.join(href) {
                 Ok(u) if matches!(u.scheme(), "http" | "https") => u,
                 Ok(u) => {
-                    failed.push((href.clone(), format!("unsupported scheme in {u}")));
+                    sheets.push(Sheet::failed(
+                        href.clone(),
+                        format!("unsupported scheme in {u}"),
+                    ));
                     continue;
                 }
                 Err(e) => {
-                    failed.push((href.clone(), format!("cannot resolve against {base}: {e}")));
+                    sheets.push(Sheet::failed(
+                        href.clone(),
+                        format!("cannot resolve against {base}: {e}"),
+                    ));
                     continue;
                 }
             };
             match self.get(&url, Kind::Style, Some(base)) {
-                Ok(css) => sheets.push(Sheet {
-                    source: href.clone(),
-                    css,
-                    media: None,
-                }),
-                Err(e) => failed.push((href.clone(), e)),
+                Ok(css) => sheets.push(Sheet::new(href.clone(), css)),
+                Err(e) => sheets.push(Sheet::failed(href.clone(), e)),
             }
         }
-        (sheets, failed)
+        sheets
     }
 
     /// A GET, repeated on transfer errors, 429 and 5xx.
