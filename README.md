@@ -39,10 +39,14 @@ never as passed. Use auditmysite or axe for them.
 ## Usage
 
 ```sh
-barrierlab [--json] [--bot] [--user-agent <ua>] <url|file>
+barrierlab [--json] [--bot] [--user-agent <ua>] [--base-url <url>]
+           [--width <px>] [--dark] [--fail-on <fail|review>] <url|file>
 ```
 
-The exit code is `1` when a rule failed, `2` when the page could not be read. Details:
+For a local file, pass `--base-url` so linked stylesheets can be loaded. A stylesheet that cannot
+be loaded appears under `inputs` in `--json` and makes the contrast checks untested.
+
+The exit code is `1` when a rule failed (with `--fail-on review` also when a finding needs review), `2` when the page could not be read. Details:
 [documentation](https://casoon.github.io/barrierlab-cli/).
 
 ## Install
@@ -52,6 +56,12 @@ cargo install --git https://github.com/casoon/barrierlab-cli
 ```
 
 Requires Rust 1.88 or newer.
+
+## Dependencies
+
+The audit comes from the barrierlab crates on crates.io (`a11y-static` and `a11y-report`, which
+pull in the rest). All of them stay on one release line, so only one copy of each crate exists
+(`cargo tree -d` shows it).
 
 ## License
 

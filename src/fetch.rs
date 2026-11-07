@@ -7,7 +7,7 @@
 use std::thread::sleep;
 use std::time::Duration;
 
-use stylesheet_parse::{Stylesheet, parse_stylesheet};
+use a11y_static::{Sheet, StylesheetRef};
 use ureq::Agent;
 use url::Url;
 
@@ -18,6 +18,9 @@ const BOT_UA: &str = concat!(
     env!("CARGO_PKG_VERSION"),
     " (+https://github.com/casoon/barrierlab-cli)"
 );
+/// Upper bounds for a response body; larger ones are an error, not truncated.
+const MAX_PAGE_BYTES: u64 = 10 * 1024 * 1024;
+const MAX_SHEET_BYTES: u64 = 2 * 1024 * 1024;
 const TRIES: u32 = 3;
 const BACKOFF_MS: u64 = 400;
 /// The longest wait a `Retry-After` may ask of us.
@@ -36,7 +39,7 @@ pub struct Fetcher {
 
 pub struct Page {
     pub html: String,
-    /// Base for resolving `<link href>`; `None` for a file.
+    /// Base for resolving `<link href>`; `None` for a file without `--base-url`.
     pub base: Option<Url>,
 }
 
@@ -65,40 +68,72 @@ impl Fetcher {
         }
     }
 
-    pub fn page(&self, target: &str) -> Result<Page, String> {
+    /// Loads the target. `base` overrides the base for resolving `<link href>`;
+    /// it is the only way to give a local file one.
+    pub fn page(&self, target: &str, base: Option<Url>) -> Result<Page, String> {
         if let Ok(url) = Url::parse(target)
             && matches!(url.scheme(), "http" | "https")
         {
             let html = self.get(&url, Kind::Document, None)?;
             return Ok(Page {
                 html,
-                base: Some(url),
+                base: base.or(Some(url)),
             });
         }
-        let html = std::fs::read_to_string(target).map_err(|e| format!("{target}: {e}"))?;
-        Ok(Page { html, base: None })
+        let bytes = std::fs::read(target).map_err(|e| format!("{target}: {e}"))?;
+        if bytes.len() as u64 > MAX_PAGE_BYTES {
+            return Err(format!("{target}: larger than {MAX_PAGE_BYTES} bytes"));
+        }
+        let html = String::from_utf8(bytes).map_err(|e| format!("{target}: {e}"))?;
+        Ok(Page { html, base })
     }
 
-    /// The page's stylesheets in document order: `<style>` text and linked
-    /// files. A file that cannot be loaded is skipped, with a note on stderr.
-    pub fn stylesheets(&self, page: &Page, inline: &[Inline]) -> Vec<Stylesheet> {
-        inline
-            .iter()
-            .filter_map(|s| match s {
-                Inline::Style(css) => Some(parse_stylesheet(css)),
-                Inline::Link(href) => {
-                    let base = page.base.as_ref()?;
-                    let url = base.join(href).ok()?;
-                    match self.get(&url, Kind::Style, Some(base)) {
-                        Ok(css) => Some(parse_stylesheet(&css)),
-                        Err(e) => {
-                            eprintln!("barrierlab: stylesheet skipped: {e}");
-                            None
-                        }
-                    }
+    /// Fetches the linked stylesheets among `refs`. Returns the sheets and,
+    /// for each `<link>` that could not be loaded, its `href` and the reason.
+    pub fn stylesheets(
+        &self,
+        page: &Page,
+        refs: &[StylesheetRef],
+    ) -> (Vec<Sheet>, Vec<(String, String)>) {
+        let mut sheets = Vec::new();
+        let mut failed = Vec::new();
+        for r in refs {
+            let StylesheetRef::Link { href, .. } = r else {
+                continue;
+            };
+            if sheets.iter().any(|s: &Sheet| s.source == *href)
+                || failed.iter().any(|(h, _): &(String, String)| h == href)
+            {
+                continue;
+            }
+            let Some(base) = page.base.as_ref() else {
+                failed.push((
+                    href.clone(),
+                    "no base URL for a local file; pass --base-url".to_string(),
+                ));
+                continue;
+            };
+            let url = match base.join(href) {
+                Ok(u) if matches!(u.scheme(), "http" | "https") => u,
+                Ok(u) => {
+                    failed.push((href.clone(), format!("unsupported scheme in {u}")));
+                    continue;
                 }
-            })
-            .collect()
+                Err(e) => {
+                    failed.push((href.clone(), format!("cannot resolve against {base}: {e}")));
+                    continue;
+                }
+            };
+            match self.get(&url, Kind::Style, Some(base)) {
+                Ok(css) => sheets.push(Sheet {
+                    source: href.clone(),
+                    css,
+                    media: None,
+                }),
+                Err(e) => failed.push((href.clone(), e)),
+            }
+        }
+        (sheets, failed)
     }
 
     /// A GET, repeated on transfer errors, 429 and 5xx.
@@ -113,10 +148,16 @@ impl Fetcher {
                 Ok(mut resp) => {
                     let status = resp.status().as_u16();
                     if (200..300).contains(&status) {
+                        let max = match kind {
+                            Kind::Document => MAX_PAGE_BYTES,
+                            Kind::Style => MAX_SHEET_BYTES,
+                        };
                         return resp
                             .body_mut()
+                            .with_config()
+                            .limit(max)
                             .read_to_string()
-                            .map_err(|e| format!("{url}: {e}"));
+                            .map_err(|e| format!("{url}: {e} (limit {max} bytes)"));
                     }
                     last = status_message(url, status);
                     if !retryable(status) {
@@ -195,9 +236,4 @@ fn status_message(url: &Url, status: u16) -> String {
         _ => "",
     };
     format!("{url}: HTTP {status}{hint}")
-}
-
-pub enum Inline {
-    Style(String),
-    Link(String),
 }

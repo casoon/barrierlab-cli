@@ -4,33 +4,54 @@ version = 4
 
 [[package]]
 name = "a11y-dom"
-version = "0.26.1"
+version = "0.28.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a58719f77b79772c09325e34e7ac0d0e12c381404069eace66fbf8132182f894"
+dependencies = [
+ "html5-parser",
+]
 
 [[package]]
 name = "a11y-report"
-version = "0.26.1"
+version = "0.28.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1fed2ce015bd55abd369e4edc6f1a61b608954670bf2a38302e134dbc79c0b58"
+checksum = "19ee6462c10eb59e4c899e623c8ff7b3a5c082a3a4240a19ca81a3e37dc3941f"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "a11y-rules"
-version = "0.26.1"
+version = "0.28.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7e51ae6972917a483316a1f081f8436fa2157cc12c74734fdcc61395f5b520b"
+checksum = "be79a4f20abf88cfaaa1a80a162edb4aa9bb152f48e03051dca835c4f736dc6b"
 dependencies = [
  "a11y-dom",
  "a11y-report",
+ "style-cascade",
+ "stylesheet-parse",
+]
+
+[[package]]
+name = "a11y-static"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a955f4389e6a051e3854c4b60a7423feb95ebc1ead5cf5fce5bfe0eafcdc4cb2"
+dependencies = [
+ "a11y-dom",
+ "a11y-report",
+ "a11y-rules",
+ "accname",
+ "html5-parser",
+ "style-cascade",
  "stylesheet-parse",
 ]
 
 [[package]]
 name = "accname"
-version = "0.26.1"
+version = "0.28.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "99935ed39ea1f613e0269fb682ffac91c9c58971164af682662dc95f3477505b"
+checksum = "8321ade173a27c8ddc99a1be96df2a751533aedc63b8644cf3e76105d8e32397"
 dependencies = [
  "a11y-dom",
 ]
@@ -45,15 +66,10 @@ checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 name = "barrierlab-cli"
 version = "0.1.0"
 dependencies = [
- "a11y-dom",
  "a11y-report",
- "a11y-rules",
- "accname",
- "html5-parser",
+ "a11y-static",
  "runemark",
  "serde_json",
- "style-cascade",
- "stylesheet-parse",
  "ureq",
  "url",
 ]
@@ -72,9 +88,9 @@ checksum = "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04"
 
 [[package]]
 name = "cc"
-version = "1.11.0"
+version = "1.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "375989decec1a0fa424442bed520fa12ede43a48475ce8c7417d2c69b32b5f6b"
+checksum = "4ff2a8126fff0f8c839080d619675a585e61720bb12d2baceae45769fd66f155"
 dependencies = [
  "find-msvc-tools",
  "shlex",
@@ -96,6 +112,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "css-tokenize"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8f1ad48f06c01b658df3098d4fec3a598a6adc2c72cbe3193a87b4e4303eb6f8"
+
+[[package]]
 name = "displaydoc"
 version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -114,9 +136,9 @@ checksum = "1c66915cc5391097de7a2b0b972e8505aa33c0df401fd3a6811dbdb32881ba48"
 
 [[package]]
 name = "flate2"
-version = "1.1.10"
+version = "1.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb"
+checksum = "626d4928326b646e70f65ed36fc7cf9f206bdb68a0019ee7c6b4709da4e084c4"
 dependencies = [
  "crc32fast",
  "miniz_oxide",
@@ -145,9 +167,9 @@ dependencies = [
 
 [[package]]
 name = "html5-parser"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38ffb819bfbd6e33f301804dfbdc4ef8f756e731be9dcea206a39eeada55a34f"
+checksum = "3fc4ad4b7d77b05c067e23ba806400a16e9a60109c448226e7e8b9485fe965d7"
 
 [[package]]
 name = "http"
@@ -295,7 +317,12 @@ checksum = "5d15f86d12da44cd8d4ec3c73984537eb7f4cadcb9776a575a0a8a05ca11005c"
 
 [[package]]
 name = "media-query-parse"
-version = "0.1.0"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b152f240adcab2252b8cbb87c5f6674ebd41b5940e54f7a002917131b8f69c1b"
+dependencies = [
+ "css-tokenize",
+]
 
 [[package]]
 name = "memchr"
@@ -480,6 +507,8 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 [[package]]
 name = "style-cascade"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "db963e1f088fe1192c7f13384c06799af2d98dbe7d623ae4f5ab05b79095e74e"
 dependencies = [
  "a11y-dom",
  "media-query-parse",
@@ -488,9 +517,11 @@ dependencies = [
 
 [[package]]
 name = "stylesheet-parse"
-version = "0.1.0"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f7156bf0be5016122c6eed75398192c5576458158fd7e6bbaac80bb77e40d265"
 dependencies = [
- "media-query-parse",
+ "css-tokenize",
 ]
 
 [[package]]
