@@ -4,27 +4,27 @@ version = 4
 
 [[package]]
 name = "a11y-dom"
-version = "0.28.1"
+version = "0.28.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a58719f77b79772c09325e34e7ac0d0e12c381404069eace66fbf8132182f894"
+checksum = "758dc9048021dcc84d416e911fa9809ecbb41edae5c0b2905dad6266520435ac"
 dependencies = [
  "html5-parser",
 ]
 
 [[package]]
 name = "a11y-report"
-version = "0.28.1"
+version = "0.28.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "19ee6462c10eb59e4c899e623c8ff7b3a5c082a3a4240a19ca81a3e37dc3941f"
+checksum = "d64da4e0305059cdd73199d89da83ceb7f153d4373d5fd10aafc768834415f50"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "a11y-rules"
-version = "0.28.1"
+version = "0.28.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "be79a4f20abf88cfaaa1a80a162edb4aa9bb152f48e03051dca835c4f736dc6b"
+checksum = "59e43af3e20072a66d1d62c775faecfcc1358c320eb97e70383044de68f3da2a"
 dependencies = [
  "a11y-dom",
  "a11y-report",
@@ -34,9 +34,9 @@ dependencies = [
 
 [[package]]
 name = "a11y-static"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a955f4389e6a051e3854c4b60a7423feb95ebc1ead5cf5fce5bfe0eafcdc4cb2"
+checksum = "bd3579d99c11484e133ce6cfc79508de57536e12ed6d0883a319b792977d4f10"
 dependencies = [
  "a11y-dom",
  "a11y-report",
@@ -49,9 +49,9 @@ dependencies = [
 
 [[package]]
 name = "accname"
-version = "0.28.1"
+version = "0.28.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8321ade173a27c8ddc99a1be96df2a751533aedc63b8644cf3e76105d8e32397"
+checksum = "8a91abdd3c7035a48107051591cd91bb055e2a92b1c7ade63b6e1f4e84052fd6"
 dependencies = [
  "a11y-dom",
 ]
@@ -494,9 +494,9 @@ checksum = "3a219298ac11a56ea9a6d2120044824d6f01aeb034955e7af7bc16858527deea"
 
 [[package]]
 name = "smallvec"
-version = "1.16.4"
+version = "1.16.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d0d5d4b1981b8bbbb7aed204cae5726d683d5d6ac7e74ec54122ea28f315e7c8"
+checksum = "149309498a5f7334b12ddae0cad8aba81ce785fe91755068867e017cf98fee46"
 
 [[package]]
 name = "stable_deref_trait"
@@ -506,9 +506,9 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
 name = "style-cascade"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db963e1f088fe1192c7f13384c06799af2d98dbe7d623ae4f5ab05b79095e74e"
+checksum = "c9417d52ecde9ecdf07088082cd8cffe3e344e5c06bc7713265c89f8055f7c73"
 dependencies = [
  "a11y-dom",
  "media-query-parse",

@@ -121,16 +121,7 @@ fn run(args: &Args) -> Result<Report, String> {
     });
     let page = fetcher.page(&args.target, args.base.clone())?;
     let doc = Page::parse(&page.html);
-    let (sheets, failed) = fetcher.stylesheets(&page, &doc.stylesheet_refs());
-    let mut report = doc.audit(&sheets, args.env, a11y_static::Locale::En);
-    // a11y-static notes each sheet it was not given; add the host's reason.
-    for note in &mut report.inputs {
-        if let Some((_, why)) = failed
-            .iter()
-            .find(|(href, _)| note.subject.as_deref() == Some(href))
-        {
-            note.detail = Some(why.clone());
-        }
-    }
+    let sheets = fetcher.stylesheets(&page, &doc.stylesheet_refs());
+    let report = doc.audit(&sheets, args.env, a11y_static::Locale::En);
     Ok(report)
 }
