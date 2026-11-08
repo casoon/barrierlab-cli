@@ -46,5 +46,5 @@ bot challenge. Save the page from a browser and pass the file instead.
 ## Output width
 
 The text report wraps to the width in the `COLUMNS` environment variable, if it is set. Without it,
-lines are not wrapped. Colour follows the terminal: none when the output is redirected or
-`NO_COLOR` is set.
+lines are not wrapped. Colour follows the terminal: none when the output is redirected, `NO_COLOR` is set
+and not empty, or `TERM=dumb`.
