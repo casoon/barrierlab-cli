@@ -17,7 +17,7 @@ path = "src/main.rs"
 # exists (`cargo tree -d` shows it).
 a11y-report = "0.28"
 a11y-static = "0.2"
-runemark = "0.9.1"
+runemark = "0.10"
 serde_json = "1"
 ureq = "3"
 url = "2"
