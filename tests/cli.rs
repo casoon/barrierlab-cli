@@ -169,3 +169,36 @@ fn dark_and_width_reach_the_environment() {
         "{narrow}"
     );
 }
+
+#[test]
+fn version_prints_without_fetching() {
+    let (code, out) = run(&["--version"]);
+    assert_eq!(code, 0);
+    assert_eq!(
+        out.trim(),
+        format!("barrierlab {}", env!("CARGO_PKG_VERSION"))
+    );
+}
+
+#[test]
+fn json_findings_carry_a_stable_id() {
+    let (_, a) = json(&["--json", "examples/page.html"]);
+    let (_, b) = json(&["--json", "examples/page.html"]);
+    let findings = a["findings"].as_array().unwrap();
+    assert!(!findings.is_empty());
+    for f in findings {
+        let id = f["id"].as_str().expect("id");
+        assert!(id.starts_with("F-") && id.len() == 10, "{id}");
+        assert_eq!(f.as_object().unwrap().keys().next().unwrap(), "id");
+    }
+    // Same input, same ids.
+    let ids = |v: &serde_json::Value| -> Vec<String> {
+        v["findings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|f| f["id"].as_str().unwrap().to_owned())
+            .collect()
+    };
+    assert_eq!(ids(&a), ids(&b));
+}

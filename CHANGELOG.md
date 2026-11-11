@@ -7,6 +7,8 @@ All notable changes to this project are documented in this file. The format foll
 
 ### Added
 
+- **Output:** `--json` adds `id` (the stable `Finding::id()`) as the first field of every finding, so hosts can compare runs and group findings without recomputing it.
+- **CLI:** `--version` (`-V`) prints the version and exits; before, it was read as a file name.
 - **Audit:** `barrierlab <url|file>` fetches a page, parses it without a browser and runs the
   structure, semantics and stylesheet rules of `a11y-rules`.
 - **Output:** text report through runemark, or `--json` with the `a11y-report` model; exit code 1
