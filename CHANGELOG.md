@@ -22,7 +22,7 @@ All notable changes to this project are documented in this file. The format foll
 
 ### Changed
 
-- **Pages:** the project site uses the current shared theme (0.12.8).
+- **Pages:** the project site uses the current shared theme (0.12.10).
 - **Audit:** parsing, stylesheet discovery (`<link media>`, `disabled`, `rel=alternate`, `<style media>`, `hidden`) and the cascade wiring come from `a11y-static`; the CLI only fetches.
 - **Dependencies:** barrierlab crates come from crates.io (`a11y-static` 0.1, `a11y-report` 0.28) instead of a sibling checkout; `cargo install --git` works on its own.
 - **Dependencies:** `runemark` 0.10. In a terminal, an empty `NO_COLOR` no longer turns colour off, and `TERM=dumb` does; piped output is unchanged.
