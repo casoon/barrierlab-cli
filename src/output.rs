@@ -69,3 +69,21 @@ pub fn print(target: &str, report: &Report) {
         view.render_with_options(Console::stdout(ColorMode::Auto), options)
     );
 }
+
+/// The report as pretty JSON, every finding with its stable `id` first
+/// (`Finding::id()`, which the model computes but does not store).
+pub fn json(report: &Report) -> String {
+    let mut value = serde_json::to_value(report).expect("serialize");
+    if let Some(findings) = value["findings"].as_array_mut() {
+        for (entry, finding) in findings.iter_mut().zip(&report.findings) {
+            let serde_json::Value::Object(fields) = entry.take() else {
+                unreachable!("a finding serialises as an object")
+            };
+            let mut with_id = serde_json::Map::new();
+            with_id.insert("id".into(), finding.id().as_str().into());
+            with_id.extend(fields);
+            *entry = serde_json::Value::Object(with_id);
+        }
+    }
+    serde_json::to_string_pretty(&value).expect("serialize")
+}

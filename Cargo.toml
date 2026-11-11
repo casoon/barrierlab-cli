@@ -18,6 +18,7 @@ path = "src/main.rs"
 a11y-report = "0.30"
 a11y-static = "0.5"
 runemark = "0.10"
-serde_json = "1"
+# preserve_order keeps the field order of the report when the finding ids are added.
+serde_json = { version = "1", features = ["preserve_order"] }
 ureq = "3"
 url = "2"

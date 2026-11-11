@@ -9,7 +9,8 @@ use a11y_static::{Environment, Page};
 use url::Url;
 
 const USAGE: &str = "usage: barrierlab [--json] [--bot] [--user-agent <ua>] [--base-url <url>]
-                  [--width <px>] [--dark] [--fail-on <fail|review>] <url|file>";
+                  [--width <px>] [--dark] [--fail-on <fail|review>] <url|file>
+       barrierlab --version";
 
 #[derive(Clone, Copy, PartialEq)]
 enum FailOn {
@@ -73,6 +74,10 @@ fn parse_args() -> Result<Option<Args>, String> {
                     v => return Err(format!("--fail-on {v}: expected fail or review")),
                 };
             }
+            "-V" | "--version" => {
+                println!("barrierlab {}", env!("CARGO_PKG_VERSION"));
+                return Ok(None);
+            }
             "-h" | "--help" => {
                 println!("{USAGE}");
                 return Ok(None);
@@ -96,10 +101,7 @@ fn main() {
     match run(&args) {
         Ok(report) => {
             if args.json {
-                println!(
-                    "{}",
-                    serde_json::to_string_pretty(&report).expect("serialize")
-                );
+                println!("{}", output::json(&report));
             } else {
                 output::print(&args.target, &report);
             }

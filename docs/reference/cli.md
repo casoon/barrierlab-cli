@@ -11,7 +11,8 @@ barrierlab [--json] [--bot] [--user-agent <ua>] [--base-url <url>]
 
 | Option | Effect |
 |---|---|
-| `--json` | Prints the report as JSON, using the `a11y-report` finding model, instead of text. |
+| `--json` | Prints the report as JSON, using the `a11y-report` finding model, instead of text. Every finding also carries `id`, its stable identity (`Finding::id()`): the rule and element pattern, or rule, file and start position where there is no selector. |
+| `--version` | Prints `barrierlab <version>` and exits 0 without fetching anything. |
 | `--bot` | Identifies itself as `barrierlab` and sends no browser navigation headers. |
 | `--user-agent <ua>` | Sends this `User-Agent` instead of the default. |
 | `--base-url <url>` | Base for resolving `<link href>`. Needed for a local file, which has none; without it linked stylesheets are not loaded. For a URL the page's own address is the default. |
