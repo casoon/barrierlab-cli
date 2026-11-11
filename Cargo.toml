@@ -15,8 +15,8 @@ path = "src/main.rs"
 [dependencies]
 # One barrierlab release line for all of them, so only one copy of each crate
 # exists (`cargo tree -d` shows it).
-a11y-report = "0.28"
-a11y-static = "0.2"
+a11y-report = "0.30"
+a11y-static = "0.5"
 runemark = "0.10"
 serde_json = "1"
 ureq = "3"

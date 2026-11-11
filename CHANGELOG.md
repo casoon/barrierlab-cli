@@ -27,3 +27,4 @@ All notable changes to this project are documented in this file. The format foll
 - **Dependencies:** barrierlab crates come from crates.io (`a11y-static` 0.1, `a11y-report` 0.28) instead of a sibling checkout; `cargo install --git` works on its own.
 - **Dependencies:** `runemark` 0.10. In a terminal, an empty `NO_COLOR` no longer turns colour off, and `TERM=dumb` does; piped output is unchanged.
 - **Dependencies:** `a11y-static` 0.2; a sheet that cannot be loaded is passed as `Sheet::failed` with its reason, so the CLI no longer rewrites the report notes itself.
+- **Dependencies:** `a11y-static` 0.5 and `a11y-report` 0.30: every finding now carries `help_url` (link to its rule on the barrierlab site), the start-tag end in `location.end` and the same stable `Finding::id()` as the other tools.
