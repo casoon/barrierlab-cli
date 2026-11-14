@@ -16,7 +16,7 @@ path = "src/main.rs"
 # One barrierlab release line for all of them, so only one copy of each crate
 # exists (`cargo tree -d` shows it).
 a11y-report = "0.30"
-a11y-static = "0.5"
+a11y-static = "0.5.1"
 runemark = "0.10"
 # preserve_order keeps the field order of the report when the finding ids are added.
 serde_json = { version = "1", features = ["preserve_order"] }
