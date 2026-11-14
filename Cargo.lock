@@ -4,27 +4,27 @@ version = 4
 
 [[package]]
 name = "a11y-dom"
-version = "0.30.0"
+version = "0.30.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f821946d4ace29b48ffc083b8863d7f699d4370c4b97f7e71f7272d711b77199"
+checksum = "46e5586c586061ff057f921ce053529bad055ea90547e09369ff5f7d1e62b7b1"
 dependencies = [
  "html5-parser",
 ]
 
 [[package]]
 name = "a11y-report"
-version = "0.30.0"
+version = "0.30.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bf8ea1ff159751af7b9c816f947fd95d1079bf60de7d83ca21fd172ea8e4ff1"
+checksum = "c60343dfb7d649e60867d8763ddc66678f83bdc153ddec3c0427f0c2c6171b5d"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "a11y-rules"
-version = "0.30.0"
+version = "0.30.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "475ee624907ac534a3703285018f050491c71c1ca918273e2e7f941421cdb8ad"
+checksum = "4d0f41e20ec72eb9a1c317552cb7e660e5f32b59b74f9d1715b18687cd87a4d4"
 dependencies = [
  "a11y-dom",
  "a11y-report",
@@ -34,9 +34,9 @@ dependencies = [
 
 [[package]]
 name = "a11y-static"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ddf50291b66bbe8fa733107a07c635d8f1e5f5ac8af9e9bda98bb07f629091e"
+checksum = "42d60adbfaaa77ca5dcfadb2863bc0ba7a6d0a3bc6f00794344f4ce61f2f4b52"
 dependencies = [
  "a11y-dom",
  "a11y-report",
@@ -49,9 +49,9 @@ dependencies = [
 
 [[package]]
 name = "accname"
-version = "0.30.0"
+version = "0.30.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc7ca6e3513ad376b97dfd42954df4a5b98cd73742846d25b259deb49ef800e0"
+checksum = "a40aecfa59747ceaf7037d3473a10e8de8f31faf0fd846f3fef6b59856fb9789"
 dependencies = [
  "a11y-dom",
 ]
@@ -536,9 +536,9 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
 name = "style-cascade"
-version = "0.3.0"
+version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "010f07e55a444b68014a8a5e471f79d30a411821ff78259055cfe28a58bb7203"
+checksum = "d18dc28fe26d66ea7aa7ed3b9f33bbf75b4f16c147b22dcf90bc3176f247c49b"
 dependencies = [
  "a11y-dom",
  "media-query-parse",

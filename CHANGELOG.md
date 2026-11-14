@@ -24,6 +24,7 @@ All notable changes to this project are documented in this file. The format foll
 
 ### Changed
 
+- **Rules:** built on `a11y-static` 0.5.1 and `a11y-rules` 0.30.2, which agree with the W3C ACT test cases (23 consistent rules instead of 8): fewer false alarms on `role="none"`, gradients and focus styles, new failures for whitespace-only `alt`, `role="img"` without a name, unknown `lang` subtags and header cells without data. Details: [ACT results](https://casoon.github.io/barrierlab/docs/testing/act/).
 - **Pages:** the project site uses the current shared theme (0.12.14).
 - **Audit:** parsing, stylesheet discovery (`<link media>`, `disabled`, `rel=alternate`, `<style media>`, `hidden`) and the cascade wiring come from `a11y-static`; the CLI only fetches.
 - **Dependencies:** barrierlab crates come from crates.io (`a11y-static` 0.1, `a11y-report` 0.28) instead of a sibling checkout; `cargo install --git` works on its own.
